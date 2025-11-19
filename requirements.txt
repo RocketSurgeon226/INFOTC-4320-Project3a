@@ -1,0 +1,6 @@
+flask
+matplotlib
+requests
+python-dateutil
+pandas
+datetime

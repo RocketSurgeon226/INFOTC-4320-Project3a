@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Stock Data Visualizer</h1>
+
+<form method="POST">
+    <label>Stock Symbol:</label>
+    <select name="symbol" required>
+        {% for stock in stocks %}
+            <option value="{{ stock.symbol }}">
+                {{ stock.symbol }} - {{ stock.name }}
+        </option>
+        {% endfor %}
+    </select>
+    
+    <br></br>
+
+    <label>Time Series:</label>
+    <select name="function">
+        <option value="TIME_SERIES_INTRADAY">Intraday</option>
+        <option value="TIME_SERIES_DAILY">Daily</option>
+        <option value="TIME_SERIES_WEEKLY">Weekly</option>
+        <option value="TIME_SERIES_MONTHLY">Monthly</option>
+    </select>
+    
+    <br></br>
+    
+    <label for="chart_type">Chart Type:</label>
+    <select name="chart_type">
+        <option value="line">Line</option>
+        <option value="bar">Bar</option>
+    </select>
+
+
+    <br></br>
+
+    <label>Start Date:</label>
+    <input type="date" name="start_date" required>
+
+    <br></br>
+
+    <label>End Date:</label>
+    <input type="date" name="end_date" required>
+
+    <br></br>
+
+    <button type="submit">Generate Chart</button>
+
+</form>
+
+{% if chart_file %}
+    <h2>Generated Chart:</h2>
+    <img src="{{ url_for('static', filename=chart_file) }}">
+{% endif %}
+{% endblock %}
